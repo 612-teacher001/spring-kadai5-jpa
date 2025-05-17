@@ -7,6 +7,11 @@
 <body>
 	<h1>商品一覧</h1>
 	
+	<!-- 価格検索 -->
+	<form action="/items" method="get">
+		<input type="number" name="maxPrice" />円以下
+		<button>検索</button>
+	</form>
 	<!-- カテゴリ検索リンク表示領域 -->
 	<div class="category-links">
 		<a href="/items">全商品</a>

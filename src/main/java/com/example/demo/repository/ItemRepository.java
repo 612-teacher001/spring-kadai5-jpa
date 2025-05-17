@@ -15,4 +15,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findByCategoryId(int categoryId);
 
+	/**
+	 * 価格上限以下の商品検索
+	 * @param  maxPrice 検索対象となる商品の価格の上限値
+	 * @return 価格上限値以下の価格の商品の商品リスト
+	 */
+	List<Item> findByPriceLessThanEqual(Integer maxPrice);
+
 }
