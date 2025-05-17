@@ -33,28 +33,38 @@ public class ItemController {
 			Model model) {
 		// 【step3での変更箇所】価格上限値によるデータベースから上限値以下の価格の商品の商品リストを取得
 		List<Item> list = null;
-		if (!keyword.isEmpty()) {
-			list = itemRepository.findByNameContains(keyword);
-			model.addAttribute("keyword", keyword);
-		} else {
-			if (maxPrice != null ) {
-				// 価格上限値による絞り込み検索
-				list = itemRepository.findByPriceLessThanEqual(maxPrice);
-				// 【step5での変更箇所】価格上限値を遷移先画面に受け継ぐ
-				model.addAttribute("maxPrice", maxPrice);
-			} else {
-				// 【step4での変更箇所】データベースから「安い順」に並べ替えた商品リストを取得
-				if (sort.equals("priceAsc")) {
-					list = itemRepository.findAllByOrderByPrice();
+		if (!keyword.isEmpty() || maxPrice != null) {
+			if (!keyword.isEmpty()) {
+				if (maxPrice == null) {
+					// キーワード検索
+					list = itemRepository.findByNameContains(keyword);
 				} else {
-					// 【step2での変更箇所】カテゴリコードによるデータベースからすべての商品の商品リストを取得
-					if (categoryId == 0) {
-						// 全商品検索の場合
-						list = itemRepository.findAll();
-					} else {
-						// カテゴリ検索（絞り込み検索）の場合
-						list = itemRepository.findByCategoryId(categoryId);
-					}
+					// キーワード検索と価格上限値検索
+					list = itemRepository.findByNameContainsAndPriceLessThanEqual(keyword, maxPrice);
+				}
+			} else {
+				if (maxPrice == null) {
+					// 全件検索
+					list = itemRepository.findAll();
+				} else {
+					// 価格上限値検索
+					list = itemRepository.findByPriceLessThanEqual(maxPrice);
+				}
+			}
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("maxPrice", maxPrice);
+		} else {
+			// 【step4での変更箇所】データベースから「安い順」に並べ替えた商品リストを取得
+			if (sort.equals("priceAsc")) {
+				list = itemRepository.findAllByOrderByPrice();
+			} else {
+				// 【step2での変更箇所】カテゴリコードによるデータベースからすべての商品の商品リストを取得
+				if (categoryId == 0) {
+					// 全商品検索の場合
+					list = itemRepository.findAll();
+				} else {
+					// カテゴリ検索（絞り込み検索）の場合
+					list = itemRepository.findByCategoryId(categoryId);
 				}
 			}
 		}
