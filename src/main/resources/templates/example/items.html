@@ -6,6 +6,16 @@
 </head>
 <body>
 	<h1>商品一覧</h1>
+	
+	<!-- カテゴリ検索リンク表示領域 -->
+	<div class="category-links">
+		<a href="/items">全商品</a>
+		<a href="/items?categoryId=1">本</a>
+		<a href="/items?categoryId=2">DVD</a>
+		<a href="/items?categoryId=3">ゲーム</a>
+	</div>
+	<!-- 検索結果表示領域 -->
+	<div class="search-resul">
 	<table border="1" th:if="${items}">
 		<tr>
 			<th>商品ID</th>
@@ -18,5 +28,6 @@
 			<td th:text="${item.price}"></td>
 		</tr>
 	</table>
+	</div>
 </body>
 </html>
