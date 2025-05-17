@@ -28,4 +28,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findAllByOrderByPrice();
 
+	/**
+	 * 商品名のキーワード検索
+	 * @return 商品名にキーワードが含まれた商品の商品リスト
+	 */
+	List<Item> findByNameContains(String keyword);
+
 }
