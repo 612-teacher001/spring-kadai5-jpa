@@ -32,9 +32,12 @@ public class ItemController {
 			Model model) {
 		// 【step3での変更箇所】価格上限値によるデータベースから上限値以下の価格の商品の商品リストを取得
 		List<Item> list = null;
+		
 		if (maxPrice != null ) {
 			// 価格上限値による絞り込み検索
 			list = itemRepository.findByPriceLessThanEqual(maxPrice);
+			// 【step5での変更箇所】価格上限値を遷移先画面に受け継ぐ
+			model.addAttribute("maxPrice", maxPrice);
 		} else {
 			// 【step4での変更箇所】データベースから「安い順」に並べ替えた商品リストを取得
 			if (sort.equals("priceAsc")) {

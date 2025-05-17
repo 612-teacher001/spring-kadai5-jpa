@@ -9,7 +9,7 @@
 	
 	<!-- 価格検索 -->
 	<form action="/items" method="get">
-		<input type="number" name="maxPrice" />円以下
+		<input type="number" name="maxPrice" th:value="${maxPrice}" />円以下
 		<button>検索</button>
 	</form>
 	<!-- カテゴリ検索リンク表示領域 -->
