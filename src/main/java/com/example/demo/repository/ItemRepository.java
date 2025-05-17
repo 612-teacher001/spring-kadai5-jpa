@@ -34,4 +34,12 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findByNameContains(String keyword);
 
+	/**
+	 * 商品名のキーワードと価格上限値を指定した検索
+	 * @param keyword  商品名のキーワード
+	 * @param maxPrice 価格上限値
+	 * @return 商品リスト
+	 */
+	List<Item> findByNameContainsAndPriceLessThanEqual(String keyword, Integer maxPrice);
+
 }
